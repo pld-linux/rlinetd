@@ -5,7 +5,7 @@ Summary:	better replacement for inetd
 Summary(pl):	lepszy zamiennik dla inetd
 Name:		rlinetd
 Version:	0.5.1
-Release:	11
+Release:	12
 License:	GPL
 Group:		Daemons
 Group(de):	Server
@@ -19,6 +19,7 @@ Patch2:		%{name}-string.h.patch
 URL:		http://www.eris.rcpt.to/rlinetd/
 Requires:	rc-inetd
 Prereq:		rc-scripts
+Prereq:		psmisc
 Requires:	/etc/rc.d/init.d/rc-inetd
 Provides:	inetdaemon
 %{?!no_libcap:BuildRequires: libcap-devel}
