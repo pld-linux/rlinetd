@@ -6,7 +6,7 @@ Release:	1
 Group:		Daemons
 Group(pl):	Serwery
 Copyright:	GPL
-Source0:	http://www.eris.rcpt.to/rlinetd/snapshots/%{name}-%{version}.tar.gz
+Source0:	http://www.eris.rcpt.to/rlinetd/%{name}-%{version}.tar.gz
 Source1:	%{name}.init
 URL:		http://www.eris.rcpt.to/rlinetd/
 Vendor:		Mikolaj J. Habryn <dichro-rlinetd@rcpt.to>
