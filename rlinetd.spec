@@ -1,6 +1,6 @@
 #
 # Conditional build:
-# _without_libcap
+%bcond_without	libcap		# build without libcap support
 #
 Summary:	better replacement for inetd
 Summary(pl):	lepszy zamiennik dla inetd
@@ -24,10 +24,9 @@ URL:		http://www.eris.rcpt.to/rlinetd/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	flex
-%{!?_without_libcap:BuildRequires:	libcap-devel}
+%{?with_libcap:BuildRequires:	libcap-devel}
 BuildRequires:	libtool
 BuildRequires:	libwrap-devel
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 PreReq:		rc-scripts
 PreReq:		psmisc
 Requires:	rc-inetd
@@ -37,6 +36,7 @@ Obsoletes:	inetdaemon
 Obsoletes:	inetd
 Obsoletes:	xinetd
 Obsoletes:	netkit-base
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 rlinetd is a connection manager which binds and listens to a number of
@@ -66,7 +66,7 @@ rm -f aux/missing
 %{__automake}
 %configure \
 	--with-libwrap \
-	--with-libcap%{?_without_libcap:=no} \
+	--with-libcap%{!?with_libcap:=no} \
 	--with-lsf \
 	--disable-static
 %{__make}
