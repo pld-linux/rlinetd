@@ -5,7 +5,7 @@ Summary:	better replacement for inetd
 Summary(pl):	lepszy zamiennik dla inetd
 Name:		rlinetd
 Version:	0.5.1
-Release:	13
+Release:	14
 License:	GPL
 Group:		Daemons
 Group(de):	Server
@@ -17,6 +17,7 @@ Source2:	%{name}.8.pl
 Patch0:		%{name}-execve.patch
 Patch1:		%{name}-tcpwrappers.patch
 Patch2:		%{name}-string.h.patch
+Patch3:		%{name}-no_libnsl.patch
 URL:		http://www.eris.rcpt.to/rlinetd/
 Requires:	rc-inetd
 Prereq:		rc-scripts
@@ -49,21 +50,30 @@ zaplanowany jako zamiennik dla programu inetd.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
+rm -f aux/missing
+libtoolize --copy --force
+autoheader
+aclocal
+autoconf
+automake -a -c
 %configure \
 	--with-libwrap \
 	--with-libcap%{?no_libcap:=no} \
-	--with-lsf
+	--with-lsf \
+	--disable-static
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_sysconfdir}/{rc.d/init.d,sysconfig},%{_mandir}/pl/man8}
+%{__install} -d $RPM_BUILD_ROOT/etc/sysconfig
 
 %{__make} install DESTDIR="$RPM_BUILD_ROOT"
-install %{SOURCE1} $RPM_BUILD_ROOT/etc/sysconfig/rc-inet.script
-install %{SOURCE2} $RPM_BUILD_ROOT%{_mandir}/pl/man8/rlinetd.8
+
+%{__install} -D %{SOURCE1} $RPM_BUILD_ROOT/etc/sysconfig/rc-inet.script
+%{__install} -D %{SOURCE2} $RPM_BUILD_ROOT%{_mandir}/pl/man8/rlinetd.8
 
 :> $RPM_BUILD_ROOT%{_sysconfdir}/rlinetd.conf
 
@@ -91,7 +101,7 @@ fi
 %attr(640,root,root) %ghost %{_sysconfdir}/rlinetd.conf
 %attr(755,root,root) %{_sbindir}/rlinetd
 %attr(755,root,root) %dir %{_libdir}/rlinetd
-%attr(755,root,root) %{_libdir}/rlinetd/*
+%attr(755,root,root) %{_libdir}/rlinetd/*.so*
 %attr(640,root,root) /etc/sysconfig/rc-inet.script
 %{_mandir}/man[58]/*
 %lang(pl) %{_mandir}/pl/man8/*
