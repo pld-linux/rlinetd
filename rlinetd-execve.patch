@@ -1,0 +1,14 @@
+diff -Naur rlinetd-0.5.1/bytecode.c rlinetd-0.5.1-patched/bytecode.c
+--- rlinetd-0.5.1/bytecode.c	Sat Aug 14 05:07:39 1999
++++ rlinetd-0.5.1-patched/bytecode.c	Wed Apr 12 22:30:37 2000
+@@ -77,8 +77,8 @@
+ 				argv = argvtab_get(*++op);
+ 				argv_build(inst, argv);
+ 				str = (j != -1) ? stringtab_get(j) : argv->argv[0];
+-				if(execve(str, argv->argv, NULL)) {
+-					rl_warn("execve(%s): %s", str, strerror(errno));
++				if(execv(str, argv->argv)) {
++					rl_warn("execv(%s): %s", str, strerror(errno));
+ 					exit(EX_DATAERR);
+ 				}
+ 				break;
