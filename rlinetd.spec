@@ -44,7 +44,7 @@ LDFLAGS="-s"; export LDFLAGS
 	--with-libwrap \
 	--with-libcap \
 	--with-lsf
-make
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
