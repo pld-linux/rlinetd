@@ -11,6 +11,7 @@ License:	GPL
 Group:		Daemons
 Vendor:		Mikolaj J. Habryn <dichro-rlinetd@rcpt.to>
 Source0:	http://www.eris.rcpt.to/rlinetd/download/%{name}-%{version}.tar.gz
+# Source0-md5: a36623b7902d2d29260e20b2be077f31
 Source1:	%{name}.inet.sh
 Source2:	%{name}.8.pl
 Patch0:		%{name}-execve.patch
