@@ -2,7 +2,7 @@ Summary:	better replacement for inetd
 Summary(pl):	lepszy zamiennik dla inetd
 Name:		rlinetd
 Version:	0.5.1
-Release:	8
+Release:	9
 Group:		Daemons
 Group(pl):	Serwery
 License:	GPL
@@ -10,6 +10,7 @@ Vendor:		Mikolaj J. Habryn <dichro-rlinetd@rcpt.to>
 Source0:	http://www.eris.rcpt.to/rlinetd/download/%{name}-%{version}.tar.gz
 Source1:	rlinetd.inet.sh
 Patch0:		%{name}-execve.patch
+Patch1:		%{name}-tcpwrappers.patch
 URL:		http://www.eris.rcpt.to/rlinetd/
 Requires:	rc-inetd
 Requires:	rc-scripts
@@ -37,6 +38,7 @@ zaplanowany jako zamiennik dla programu inetd.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 LDFLAGS="-s"; export LDFLAGS
