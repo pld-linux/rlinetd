@@ -1,14 +1,13 @@
 Summary:	better replacement for inetd
 Summary(pl):	lepszy zamiennik dla inetd
 Name:		rlinetd
-Version:	0.3
+Version:	19990722
 Release:	1
 Group:		Daemons
 Group(pl):	Serwery
 Copyright:	GPL
 Source0:	http://www.eris.rcpt.to/rlinetd/%{name}-%{version}.tar.gz
 Source1:	%{name}.init
-Patch:		rlinetd-temporary.patch
 URL:		http://www.eris.rcpt.to/rlinetd/
 Provides:	inetd
 BuildRequires:	libcap-devel
@@ -25,15 +24,16 @@ wykonuj±c zadane czynno¶ci, kiedy nast±pi po³±czenie. Jest zaplanowany jako
 zamiennik dla programu inetd.
 
 %prep
-%setup -q
-%patch -p1
+%setup -q -n %{name}-0.4
 
 %build
 CFLAGS="$RPM_OPT_FLAGS" \
 ./configure \
-	--prefix=/usr \
-	--exec-prefix=/usr \
-	--sysconfdir=/etc
+	--prefix=%{_prefix} \
+	--exec-prefix=%{_prefix} \
+	--sysconfdir=/etc \
+	--with-libwrap \
+	--with-libcap
 
 make
 
@@ -46,7 +46,8 @@ touch $RPM_BUILD_ROOT/etc/rlinetd.conf
 make install DESTDIR="$RPM_BUILD_ROOT" mandir="%{_mandir}"
 cp %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/rlinetd
 
-gzip -9nf $RPM_BUILD_ROOT/usr/share/man/man{1,5,8}/*
+strip $RPM_BUILD_ROOT%{_libdir}/rlinetd/* || :
+gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man{1,5,8}/*
 gzip -9nf {AUTHORS,BUGS,ChangeLog,INSTALL,NEWS,README,README.capabilities,README.inetd,THANKS,THOUGHTS,TODO}
 
 %clean
@@ -73,9 +74,8 @@ fi
 %defattr(644, root, root, 755)
 %doc {AUTHORS,BUGS,ChangeLog,INSTALL,NEWS,README,README.capabilities,README.inetd,THANKS,THOUGHTS,TODO}.gz
 %ghost /etc/rlinetd.conf
-%attr(755, root, root) /usr/sbin/*
-/usr/lib/rlinetd
+%attr(755, root, root) %{_sbindir}/*
+%attr(755, root, root) %dir %{_libdir}/rlinetd
+%attr(755, root, root) %{_libdir}/rlinetd/*
 %attr(755, root, root) /etc/rc.d/init.d/rlinetd
-%{_mandir}/man1/*
-%{_mandir}/man5/*
-%{_mandir}/man8/*
+%{_mandir}/man*/*
