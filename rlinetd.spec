@@ -84,7 +84,11 @@ gzip -9nf AUTHORS BUGS ChangeLog NEWS README{,.capabilities,.inetd} \
 rm -rf $RPM_BUILD_ROOT
 
 %post
-%rc_inetd_post
+if [ -f /var/lock/subsys/rc-inetd ]; then
+	/etc/rc.d/init.d/rc-inetd restart 1>&2
+else
+	echo "Type \"/etc/rc.d/init.d/rc-inetd start\" to start rlinetd" 1>&2
+fi
 
 %preun
 if [ "$1" = "0" -a -f /var/lock/subsys/rc-inetd ]; then
