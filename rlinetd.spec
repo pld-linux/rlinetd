@@ -13,7 +13,6 @@ Group(pl):	Serwery
 Vendor:		Mikolaj J. Habryn <dichro-rlinetd@rcpt.to>
 Source0:	http://www.eris.rcpt.to/rlinetd/download/%{name}-%{version}.tar.gz
 Source1:	%{name}.inet.sh
-Source2:	%{name}.8.pl
 Patch0:		%{name}-execve.patch
 Patch1:		%{name}-tcpwrappers.patch
 Patch2:		%{name}-string.h.patch
@@ -63,7 +62,6 @@ install -d $RPM_BUILD_ROOT{%{_sysconfdir}/{rc.d/init.d,sysconfig},%{_mandir}/pl/
 
 %{__make} install DESTDIR="$RPM_BUILD_ROOT"
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/sysconfig/rc-inet.script
-install %{SOURCE2} $RPM_BUILD_ROOT%{_mandir}/pl/man8/rlinetd.8
 
 :> $RPM_BUILD_ROOT%{_sysconfdir}/rlinetd.conf
 
@@ -94,4 +92,3 @@ fi
 %attr(755,root,root) %{_libdir}/rlinetd/*
 %attr(640,root,root) /etc/sysconfig/rc-inet.script
 %{_mandir}/man[58]/*
-%lang(pl) %{_mandir}/pl/man8/*
