@@ -4,6 +4,7 @@ PROCESS_NAME=rlinetd
 
 # inet server config
 CONFIG_FILE=/etc/rlinetd.conf
+CONFIG_FILE_UMASK=027
 
 # inet server daemon executable file name
 INETDAEMON=/usr/sbin/rlinetd
