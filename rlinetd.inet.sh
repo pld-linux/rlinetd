@@ -32,7 +32,7 @@ parse_one_service()
 	echo "service \"$SERVICE_NAME\" {"
 	echo "	protocol	$PROTOCOL;"
 	[ "${FAMILY:-none}" = "none" ] || echo "	family		$FAMILY;"
-	echo "	port		$PORT;"
+	echo "	port		\"$PORT\";"
 	echo "	user		\"$USER\";"
 	[ "${GROUP:-none}" = "none" ] || echo "	group		\"$GROUP\";"
 	if [ "$SERVER" = "tcpd" ] ; then
