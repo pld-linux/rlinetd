@@ -1,8 +1,11 @@
+#
+# no_libcap
+#
 Summary:	better replacement for inetd
 Summary(pl):	lepszy zamiennik dla inetd
 Name:		rlinetd
 Version:	0.5.1
-Release:	9
+Release:	10
 Group:		Daemons
 Group(de):	Server
 Group(pl):	Serwery
@@ -17,7 +20,7 @@ Requires:	rc-inetd
 Requires:	rc-scripts
 Requires:	/etc/rc.d/init.d/rc-inetd
 Provides:	inetdaemon
-BuildRequires:	libcap-devel
+%{?!no_libcap:BuildRequires: libcap-devel}
 BuildRequires:	libwrap-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	inetdaemon
@@ -44,7 +47,7 @@ zaplanowany jako zamiennik dla programu inetd.
 %build
 %configure \
 	--with-libwrap \
-	--with-libcap \
+	--with-libcap%{?no_libcap:=no} \
 	--with-lsf
 %{__make}
 
