@@ -59,8 +59,8 @@ zaplanowany jako zamiennik dla programu inetd.
 %build
 rm -f aux/missing
 %{__libtoolize}
-autoheader
-aclocal
+%{__autoheader}
+%{__aclocal}
 %{__autoconf}
 %{__automake}
 %configure \
