@@ -1,0 +1,11 @@
+--- rlinetd-0.5.1/signals.h.orig	Fri Jun 18 17:48:03 1999
++++ rlinetd-0.5.1/signals.h	Thu Oct 24 23:17:57 2002
+@@ -11,7 +11,7 @@
+ 
+ #define RL_MAX(a,b) ((a) > (b) ? (a) : (b))
+ 
+-extern int rls_need_parse;
++extern volatile int rls_need_parse;
+ extern volatile struct pidtab *rls_reaped;
+ 
+ #endif /* !H_SIGNALS */
