@@ -73,7 +73,7 @@ parse_one_service()
 	return 0
 }
 
-status_rc-inetd()
+status_rc_inetd()
 {
 	status $INETDEAMON
 }
