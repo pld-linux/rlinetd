@@ -6,14 +6,19 @@ Release:	1
 Group:		Daemons
 Group(pl):	Serwery
 Copyright:	GPL
-Source0:	http://www.eris.rcpt.to/rlinetd/%{name}-%{version}.tar.gz
-Source1:	%{name}.init
-URL:		http://www.eris.rcpt.to/rlinetd/
 Vendor:		Mikolaj J. Habryn <dichro-rlinetd@rcpt.to>
-Provides:	inetd
+Source0:	http://www.eris.rcpt.to/rlinetd/%{name}-%{version}.tar.gz
+Source1:	rlinetd.init
+Source2:	rlinetd.inet.sh
+URL:		http://www.eris.rcpt.to/rlinetd/
+Requires:	rc-inetd
+Requires:	/etc/rc.d/init.d/rc-inetd
+Provides:	inetdaemon
 BuildPrereq:	libcap-devel
 BuildPrereq:	libwrap-devel
 Buildroot:      /tmp/%{name}-%{version}-root
+
+%define         _sysconfdir     /etc
 
 %description
 rlinetd is a connection manager which binds and listens to a number of ports,
@@ -29,8 +34,8 @@ zamiennik dla programu inetd.
 %setup -q
 
 %build
+LDFLAGS="-s"; export LDFLAGS
 %configure \
-	--sysconfdir=/etc \
 	--with-libwrap \
 	--with-libcap \
 	--with-lsf
@@ -38,48 +43,40 @@ make
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT/etc/{rc.d/init.d,sysconfig}
 
-install -d		$RPM_BUILD_ROOT/etc/{rc.d/init.d,rlinetd.d}
-touch			$RPM_BUILD_ROOT/etc/rlinetd.conf
-make	install		DESTDIR="$RPM_BUILD_ROOT"
-install	%{SOURCE1}	$RPM_BUILD_ROOT/etc/rc.d/init.d/%{name}
+make install DESTDIR="$RPM_BUILD_ROOT"
+install	%{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/%{name}
+install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/rc-inet.script
 
-strip			$RPM_BUILD_ROOT%{_sbindir}/* || :
-gzip -9nf		$RPM_BUILD_ROOT%{_mandir}/man{1,5,8}/*
-gzip -9nf		{AUTHORS,BUGS,ChangeLog,INSTALL,NEWS,README} \
-			{README.capabilities,README.inetd,THANKS,THOUGHTS,TODO}
+:> $RPM_BUILD_ROOT%{_sysconfdir}/rlinetd.conf
+
+gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man{1,5,8}/* \
+	{AUTHORS,BUGS,ChangeLog,NEWS,README} \
+	{README.capabilities,README.inetd,THANKS,THOUGHTS,TODO}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
-if [ ! -f /etc/rlinetd.conf ]; then
-  echo 'directory "/etc/rlinetd.d" ".*" ".*(~$|.rpmsave$|.rpmnew$|.rpmorig$)";' > /etc/rlinetd.conf
-  if [ -f /etc/inetd.conf ]; then
-    %{_sbindir}/inetd2rlinetd /etc/inetd.conf >> /etc/rlinetd.conf
-    echo 
-    echo Configuration file /etc/rlinetd.conf was generated using existing
-    echo /etc/inetd.conf file.
-    echo
-    echo To start rlinetd daemon type /etc/rc.d/init.d/rlinetd start
-    echo Make sure inetd is not running!
-    echo
-  fi
-  chmod 640 /etc/rlinetd.conf
+if [ -f /var/lock/subsys/rc-inetd ]; then
+	/etc/rc.d/init.d/rc-inetd restart 1>&2
+else
+	echo "Type \"/etc/rc.d/init.d/rc-inetd start\" to start rlinetd" 1>&2
 fi
 
 %preun
-if [ -f /var/lock/subsys/rlinetd ]; then
+if [ -f /var/lock/subsys/rc-initd ]; then
 	/etc/rc.d/init.d/rlinetd stop
 fi
 
 %files
 %defattr(644, root, root, 755)
-%doc {AUTHORS,BUGS,ChangeLog,INSTALL,NEWS,README,README.capabilities,README.inetd,THANKS,THOUGHTS,TODO}.gz
-%attr(640, root, root) %ghost /etc/rlinetd.conf
-%attr(755, root, root) %{_sbindir}/*
-%attr(755, root, root) %dir %{_libdir}/rlinetd
-%attr(755, root, root) %{_libdir}/rlinetd/*
-%attr(755, root, root) %dir /etc/%{name}.d
-%attr(755, root, root) /etc/rc.d/init.d/%{name}
+%doc *.gz
+%attr(640,root,root) %ghost /etc/rlinetd.conf
+%attr(755,root,root) %{_sbindir}/*
+%attr(755,root,root) %dir %{_libdir}/rlinetd
+%attr(755,root,root) %{_libdir}/rlinetd/*
+%attr(755,root,root) /etc/rc.d/init.d/rlinetd
+%attr(640,root,root) /etc/sysconfig/rc-inet.script
 %{_mandir}/man[158]/*
