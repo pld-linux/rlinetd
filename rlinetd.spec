@@ -55,7 +55,7 @@ zaplanowany jako zamiennik dla programu inetd.
 
 %build
 rm -f aux/missing
-libtoolize --copy --force
+%{__libtoolize}
 autoheader
 aclocal
 %{__autoconf}
