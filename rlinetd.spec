@@ -1,7 +1,7 @@
 Summary:	better replacement for inetd
 Summary(pl):	lepszy zamiennik dla inetd
 Name:		rlinetd
-Version:	19990722
+Version:	0.4
 Release:	1
 Group:		Daemons
 Group(pl):	Serwery
@@ -24,7 +24,7 @@ wykonuj±c zadane czynno¶ci, kiedy nast±pi po³±czenie. Jest zaplanowany jako
 zamiennik dla programu inetd.
 
 %prep
-%setup -q -n %{name}-0.4
+%setup -q
 
 %build
 CFLAGS="$RPM_OPT_FLAGS" \
