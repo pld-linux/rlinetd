@@ -1,0 +1,9 @@
+--- rlinetd-0.5.1/configure.in.orig	Thu Jul 25 11:30:04 2002
++++ rlinetd-0.5.1/configure.in	Thu Jul 25 11:30:53 2002
+@@ -106,6 +106,5 @@
+ fi
+ 
+ AC_SUBST(libsrlinetd)
+-AC_SUBST(LIBOBJS)
+ AC_PATH_PROG(perlpath, perl, /usr/bin/perl)
+ AC_OUTPUT(Makefile port/Makefile scripts/Makefile man/Makefile scripts/inetd2rlinetd scripts/td2lsf)
