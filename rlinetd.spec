@@ -5,11 +5,11 @@ Summary:	better replacement for inetd
 Summary(pl):	lepszy zamiennik dla inetd
 Name:		rlinetd
 Version:	0.5.1
-Release:	10
+Release:	11
+License:	GPL
 Group:		Daemons
 Group(de):	Server
 Group(pl):	Serwery
-License:	GPL
 Vendor:		Mikolaj J. Habryn <dichro-rlinetd@rcpt.to>
 Source0:	http://www.eris.rcpt.to/rlinetd/download/%{name}-%{version}.tar.gz
 Source1:	%{name}.inet.sh
@@ -61,8 +61,8 @@ install %{SOURCE1} $RPM_BUILD_ROOT/etc/sysconfig/rc-inet.script
 
 :> $RPM_BUILD_ROOT%{_sysconfdir}/rlinetd.conf
 
-gzip -9nf {AUTHORS,BUGS,ChangeLog,NEWS,README} \
-	{README.capabilities,README.inetd,THANKS,THOUGHTS,TODO}
+gzip -9nf AUTHORS BUGS ChangeLog NEWS README{,.capabilities,.inetd} \
+	THANKS THOUGHTS TODO
 
 %clean
 rm -rf $RPM_BUILD_ROOT
