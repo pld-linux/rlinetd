@@ -2,7 +2,7 @@ Summary:	better replacement for inetd
 Summary(pl):	lepszy zamiennik dla inetd
 Name:		rlinetd
 Version:	0.5.1
-Release:	5	
+Release:	6
 Group:		Daemons
 Group(pl):	Serwery
 Copyright:	GPL
@@ -65,19 +65,16 @@ else
 fi
 
 %preun
-if [ "$1" = "0" ]; then
-	if [ -f /var/lock/subsys/rc-inetd ]; then
-		/etc/rc.d/init.d/rc-inetd stop
-	fi
+if [ "$1" = "0" -a -f /var/lock/subsys/rc-inetd ]; then
+	/etc/rc.d/init.d/rc-inetd stop
 fi
 
 %files
 %defattr(644, root, root, 755)
 %doc *.gz
 %attr(640,root,root) %ghost /etc/rlinetd.conf
-%attr(755,root,root) %{_sbindir}/*
+%attr(755,root,root) %{_sbindir}/rlinetd
 %attr(755,root,root) %dir %{_libdir}/rlinetd
 %attr(755,root,root) %{_libdir}/rlinetd/*
-#%attr(755,root,root) /etc/rc.d/init.d/rlinetd
 %attr(640,root,root) /etc/sysconfig/rc-inet.script
-%{_mandir}/man[158]/*
+%{_mandir}/man[58]/*
