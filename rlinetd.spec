@@ -17,6 +17,9 @@ Provides:	inetdaemon
 BuildRequires:	libcap-devel
 BuildRequires:	libwrap-devel
 Buildroot:      /tmp/%{name}-%{version}-root
+Obsoletes:	inetdaemon
+Obsoletes:	inetd
+Obsoletes:	netkit-base
 
 %define         _sysconfdir     /etc
 
