@@ -1,5 +1,5 @@
 #
-# no_libcap
+# _without_libcap
 #
 Summary:	better replacement for inetd
 Summary(pl):	lepszy zamiennik dla inetd
@@ -20,14 +20,17 @@ Patch2:		%{name}-string.h.patch
 Patch3:		%{name}-no_libnsl.patch
 URL:		http://www.eris.rcpt.to/rlinetd/
 Requires:	rc-inetd
+Requires:	/etc/rc.d/init.d/rc-inetd
 Prereq:		rc-scripts
 Prereq:		psmisc
-Requires:	/etc/rc.d/init.d/rc-inetd
-Provides:	inetdaemon
-%{?!no_libcap:BuildRequires: libcap-devel}
+%{!?_without_libcap:BuildRequires: libcap-devel}
 BuildRequires:	libwrap-devel
 BuildRequires:	flex
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+Provides:	inetdaemon
 Obsoletes:	inetdaemon
 Obsoletes:	inetd
 Obsoletes:	xinetd
@@ -61,19 +64,19 @@ autoconf
 automake -a -c
 %configure \
 	--with-libwrap \
-	--with-libcap%{?no_libcap:=no} \
+	--with-libcap%{?_without_libcap:=no} \
 	--with-lsf \
 	--disable-static
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__install} -d $RPM_BUILD_ROOT/etc/sysconfig
+install -d $RPM_BUILD_ROOT/etc/sysconfig
 
 %{__make} install DESTDIR="$RPM_BUILD_ROOT"
 
-%{__install} -D %{SOURCE1} $RPM_BUILD_ROOT/etc/sysconfig/rc-inet.script
-%{__install} -D %{SOURCE2} $RPM_BUILD_ROOT%{_mandir}/pl/man8/rlinetd.8
+install -D %{SOURCE1} $RPM_BUILD_ROOT/etc/sysconfig/rc-inet.script
+install -D %{SOURCE2} $RPM_BUILD_ROOT%{_mandir}/pl/man8/rlinetd.8
 
 :> $RPM_BUILD_ROOT%{_sysconfdir}/rlinetd.conf
 
