@@ -2,7 +2,7 @@ Summary:	better replacement for inetd
 Summary(pl):	lepszy zamiennik dla inetd
 Name:		rlinetd
 Version:	0.5.1
-Release:	4
+Release:	5	
 Group:		Daemons
 Group(pl):	Serwery
 Copyright:	GPL
@@ -14,8 +14,8 @@ Requires:	rc-inetd
 Requires:	rc-scripts
 Requires:	/etc/rc.d/init.d/rc-inetd
 Provides:	inetdaemon
-BuildPrereq:	libcap-devel
-BuildPrereq:	libwrap-devel
+BuildRequires:	libcap-devel
+BuildRequires:	libwrap-devel
 Buildroot:      /tmp/%{name}-%{version}-root
 
 %define         _sysconfdir     /etc
