@@ -6,7 +6,7 @@ Summary:	better replacement for inetd
 Summary(pl):	lepszy zamiennik dla inetd
 Name:		rlinetd
 Version:	0.5.1
-Release:	17
+Release:	18
 License:	GPL
 Group:		Daemons
 Vendor:		Mikolaj J. Habryn <dichro-rlinetd@rcpt.to>
