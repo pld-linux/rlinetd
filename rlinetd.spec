@@ -59,7 +59,7 @@ libtoolize --copy --force
 autoheader
 aclocal
 autoconf
-automake -a -c
+automake -a -c -f
 %configure \
 	--with-libwrap \
 	--with-libcap%{?_without_libcap:=no} \
