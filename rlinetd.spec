@@ -11,7 +11,7 @@ License:	GPL
 Group:		Daemons
 Vendor:		Mikolaj J. Habryn <dichro-rlinetd@rcpt.to>
 Source0:	http://www.eris.rcpt.to/rlinetd/download/%{name}-%{version}.tar.gz
-# Source0-md5: a36623b7902d2d29260e20b2be077f31
+# Source0-md5:	a36623b7902d2d29260e20b2be077f31
 Source1:	%{name}.inet.sh
 Source2:	%{name}.8.pl
 Patch0:		%{name}-execve.patch
@@ -24,7 +24,7 @@ URL:		http://www.eris.rcpt.to/rlinetd/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	flex
-%{!?_without_libcap:BuildRequires: libcap-devel}
+%{!?_without_libcap:BuildRequires:	libcap-devel}
 BuildRequires:	libtool
 BuildRequires:	libwrap-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
