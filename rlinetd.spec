@@ -79,11 +79,3 @@ fi
 %{_mandir}/man1/*
 %{_mandir}/man5/*
 %{_mandir}/man8/*
-
-%changelog
-* Sat Jul  6 1999 Michal Margula <alchemyx@pld.org.pl>
-[0.3-1]
-- initial release
-- automatic generation of /etc/rlinetd.conf using /etc/inetd.conf
-- dirty patch for configuration location added - should be removed in next
-  release
