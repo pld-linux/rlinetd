@@ -1,0 +1,217 @@
+--- rlinetd-0.5.1/assemble.c~	Sat Aug 14 05:07:39 1999
++++ rlinetd-0.5.1/assemble.c	Fri Apr 13 23:06:42 2001
+@@ -1,12 +1,13 @@
+ #include <stdarg.h>
+ #include <stdlib.h>
+-#include <string.h>
+ 
+ #include "assemble.h"
+ #include "bytecode.h"
+ #include "db.h"
+ #include "error.h"
+ #include "rlinetd.h"
++
++#include <string.h>
+ 
+ /* last things that can possibly happen */
+ static rl_opcode_t terminals[] =
+--- rlinetd-0.5.1/cleanups.c.orig	Thu Jul 29 17:09:02 1999
++++ rlinetd-0.5.1/cleanups.c	Fri Apr 13 23:13:37 2001
+@@ -1,10 +1,10 @@
+-#include <rpc/rpc.h>
+-#include <rpc/pmap_clnt.h>
+-
+ #include "data.h"
+ #include "error.h"
+ #include "parse.h"
+ #include "rlinetd.h"
++
++#include <rpc/rpc.h>
++#include <rpc/pmap_clnt.h>
+ 
+ void rlp_cleanup(struct rl_cleanup *rlc) {
+ 	struct numlist *nl;
+--- rlinetd-0.5.1/data.c~	Thu Jul 15 09:48:26 1999
++++ rlinetd-0.5.1/data.c	Fri Apr 13 23:14:18 2001
+@@ -1,5 +1,4 @@
+ #include <stdlib.h>
+-#include <string.h>
+ #include <sysexits.h>
+ 
+ #include <pwd.h>
+@@ -8,6 +7,8 @@
+ 
+ #include "data.h"
+ #include "db.h"
++
++#include <string.h>
+ 
+ void numlist_add(struct numlist **list, long num) {
+ 	struct numlist *tmp = (struct numlist *)malloc(sizeof(*tmp));
+--- rlinetd-0.5.1/libdb.c~	Fri Aug 27 03:13:08 1999
++++ rlinetd-0.5.1/libdb.c	Fri Apr 13 23:14:43 2001
+@@ -3,7 +3,6 @@
+ #include <fcntl.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+-#include <string.h>
+ #include <sys/mman.h>
+ #include <sys/stat.h>
+ #include <sys/types.h>
+@@ -19,6 +18,8 @@
+ #include "error.h"
+ #include "rlinetd.h"
+ #include "util.h"
++
++#include <string.h>
+ 
+ #ifndef MAP_FAILED
+ #define MAP_FAILED ((void *)-1)
+--- rlinetd-0.5.1/grammar.y.orig	Fri Sep  3 10:40:50 1999
++++ rlinetd-0.5.1/grammar.y	Fri Apr 13 23:20:01 2001
+@@ -1,5 +1,7 @@
+ %{
+ 
++#include "data.h"
++
+ #include <errno.h>
+ #include <fcntl.h>
+ #include <grp.h>
+@@ -11,7 +13,6 @@
+ #include <rpc/pmap_clnt.h>
+ #include <stdlib.h>
+ #include <stdio.h>
+-#include <string.h>
+ #include <sysexits.h>
+ #include <syslog.h>
+ #include <sys/socket.h>
+@@ -47,13 +48,14 @@
+ 	
+ #include "assemble.h"
+ #include "bytecode.h"
+-#include "data.h"
+ #include "db.h"
+-#include "error.h"
+ #include "parse.h"
+ #include "rlinetd.h"
+ #include "signals.h"
+ #include "util.h"	
++#include "error.h"
++
++#include <string.h>
+ 
+ struct userdata *userdata;
+  
+--- rlinetd-0.5.1/bytecode.c~	Fri Apr 13 23:07:57 2001
++++ rlinetd-0.5.1/bytecode.c	Fri Apr 13 23:20:35 2001
+@@ -3,7 +3,6 @@
+ #include <grp.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+-#include <string.h>
+ #include <sysexits.h>
+ #include <syslog.h>
+ #include <sys/socket.h>
+@@ -32,6 +31,8 @@
+ #include "rlinetd.h"
+ #include "signals.h"
+ #include "stack.h"
++
++#include <string.h>
+ 
+ /* we avoid the more tedious sanity checks by assuming that since
+ 	 we wrote the opcodes, they're going to be what we accept. dodgy. */
+--- rlinetd-0.5.1/db.c~	Sat Aug 14 05:07:39 1999
++++ rlinetd-0.5.1/db.c	Fri Apr 13 23:21:07 2001
+@@ -3,7 +3,6 @@
+ #include <netinet/in.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+-#include <string.h>
+ #include <sys/stat.h>
+ #include <sys/types.h>
+ 
+@@ -16,6 +15,8 @@
+ #include "db.h"
+ #include "rlinetd.h"
+ #include "strings.h"
++
++#include <string.h>
+ 
+ struct argvtab *argvs = NULL;
+ int numargvs = 0;
+--- rlinetd-0.5.1/engine.c~	Fri Sep  3 10:15:48 1999
++++ rlinetd-0.5.1/engine.c	Fri Apr 13 23:21:27 2001
+@@ -6,7 +6,6 @@
+ #include <stdarg.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+-#include <string.h>
+ #include <sysexits.h>
+ #include <syslog.h>
+ #include <sys/types.h>
+@@ -25,6 +24,8 @@
+ #include "error.h"
+ #include "rlinetd.h"
+ #include "signals.h"
++
++#include <string.h>
+ 
+ struct rl_cleanup *rl_cleanups = NULL;
+ int hisock;
+--- rlinetd-0.5.1/main.c~	Mon Jul 26 09:19:25 1999
++++ rlinetd-0.5.1/main.c	Fri Apr 13 23:21:51 2001
+@@ -4,7 +4,6 @@
+ #include <signal.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+-#include <string.h>
+ #include <unistd.h>
+ #include <stdarg.h>
+ #include <sysexits.h>
+@@ -37,6 +36,8 @@
+ #include "db.h"
+ #include "rlinetd.h"
+ #include "signals.h"
++
++#include <string.h>
+ 
+ void main_loop();
+ 
+--- rlinetd-0.5.1/strings.c~	Thu Aug  5 11:39:10 1999
++++ rlinetd-0.5.1/strings.c	Fri Apr 13 23:22:13 2001
+@@ -1,6 +1,5 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+-#include <string.h>
+ #include <sysexits.h>
+ #include <sys/types.h>
+ #include <sys/socket.h>
+@@ -15,6 +14,8 @@
+ #include "error.h"
+ #include "rlinetd.h"
+ #include "strings.h"
++
++#include <string.h>
+ 
+ void loglist_walk(struct rl_instance *inst, struct loglist *l, int c) {
+ 	int i;
+--- rlinetd-0.5.1/signals.c~	Fri Aug 20 12:19:51 1999
++++ rlinetd-0.5.1/signals.c	Fri Apr 13 23:22:42 2001
+@@ -1,7 +1,6 @@
+ #include <errno.h>
+ #include <signal.h>
+ #include <stdio.h>
+-#include <string.h>
+ #include <sysexits.h>
+ #include <sys/types.h>
+ #include <sys/wait.h>
+@@ -11,6 +10,8 @@
+ #include "error.h"
+ #include "rlinetd.h"
+ #include "signals.h"
++
++#include <string.h>
+ 
+ volatile int rls_need_parse = 1;
+ volatile struct pidtab *rls_reaped = NULL;
