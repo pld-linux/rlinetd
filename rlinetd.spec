@@ -20,6 +20,7 @@ Patch2:		%{name}-string.h.patch
 Patch3:		%{name}-no_libnsl.patch
 Patch4:		%{name}-ac25x.patch
 Patch5:		%{name}-gcc3.patch
+Patch6:		%{name}-gcc34.patch
 URL:		http://www.eris.rcpt.to/rlinetd/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -56,9 +57,9 @@ zaplanowany jako zamiennik dla programu inetd.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 %build
-rm -f aux/missing
 %{__libtoolize}
 %{__autoheader}
 %{__aclocal}
