@@ -8,8 +8,6 @@ Version:	0.5.1
 Release:	14
 License:	GPL
 Group:		Daemons
-Group(de):	Server
-Group(pl):	Serwery
 Vendor:		Mikolaj J. Habryn <dichro-rlinetd@rcpt.to>
 Source0:	http://www.eris.rcpt.to/rlinetd/download/%{name}-%{version}.tar.gz
 Source1:	%{name}.inet.sh
