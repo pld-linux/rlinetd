@@ -67,7 +67,7 @@ else
 fi
 
 %preun
-if [ -f /var/lock/subsys/rc-initd ]; then
+if [ -f /var/lock/subsys/rc-inetd ]; then
 	/etc/rc.d/init.d/rc-inetd stop
 fi
 
