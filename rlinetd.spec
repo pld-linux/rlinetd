@@ -22,6 +22,7 @@ Requires:	/etc/rc.d/init.d/rc-inetd
 Provides:	inetdaemon
 %{?!no_libcap:BuildRequires: libcap-devel}
 BuildRequires:	libwrap-devel
+BuildRequires:	flex
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	inetdaemon
 Obsoletes:	inetd
