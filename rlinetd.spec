@@ -1,11 +1,12 @@
 #
+# Conditional build:
 # _without_libcap
 #
 Summary:	better replacement for inetd
 Summary(pl):	lepszy zamiennik dla inetd
 Name:		rlinetd
 Version:	0.5.1
-Release:	14
+Release:	15
 License:	GPL
 Group:		Daemons
 Vendor:		Mikolaj J. Habryn <dichro-rlinetd@rcpt.to>
@@ -16,18 +17,19 @@ Patch0:		%{name}-execve.patch
 Patch1:		%{name}-tcpwrappers.patch
 Patch2:		%{name}-string.h.patch
 Patch3:		%{name}-no_libnsl.patch
+Patch4:		%{name}-ac25x.patch
 URL:		http://www.eris.rcpt.to/rlinetd/
-Requires:	rc-inetd
-Requires:	/etc/rc.d/init.d/rc-inetd
-Prereq:		rc-scripts
-Prereq:		psmisc
-%{!?_without_libcap:BuildRequires: libcap-devel}
-BuildRequires:	libwrap-devel
-BuildRequires:	flex
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	flex
+%{!?_without_libcap:BuildRequires: libcap-devel}
 BuildRequires:	libtool
+BuildRequires:	libwrap-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+PreReq:		rc-scripts
+PreReq:		psmisc
+Requires:	rc-inetd
+Requires:	/etc/rc.d/init.d/rc-inetd
 Provides:	inetdaemon
 Obsoletes:	inetdaemon
 Obsoletes:	inetd
@@ -52,6 +54,7 @@ zaplanowany jako zamiennik dla programu inetd.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 rm -f aux/missing
@@ -78,9 +81,6 @@ install -D %{SOURCE2} $RPM_BUILD_ROOT%{_mandir}/pl/man8/rlinetd.8
 
 :> $RPM_BUILD_ROOT%{_sysconfdir}/rlinetd.conf
 
-gzip -9nf AUTHORS BUGS ChangeLog NEWS README{,.capabilities,.inetd} \
-	THANKS THOUGHTS TODO
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -98,7 +98,7 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc *.gz
+%doc AUTHORS BUGS ChangeLog NEWS README{,.capabilities,.inetd} THANKS THOUGHTS TODO
 %attr(640,root,root) %ghost %{_sysconfdir}/rlinetd.conf
 %attr(755,root,root) %{_sbindir}/rlinetd
 %attr(755,root,root) %dir %{_libdir}/rlinetd
