@@ -4,11 +4,12 @@ Name:		rlinetd
 Version:	0.5.1
 Release:	9
 Group:		Daemons
+Group(de):	Server
 Group(pl):	Serwery
 License:	GPL
 Vendor:		Mikolaj J. Habryn <dichro-rlinetd@rcpt.to>
 Source0:	http://www.eris.rcpt.to/rlinetd/download/%{name}-%{version}.tar.gz
-Source1:	rlinetd.inet.sh
+Source1:	%{name}.inet.sh
 Patch0:		%{name}-execve.patch
 Patch1:		%{name}-tcpwrappers.patch
 URL:		http://www.eris.rcpt.to/rlinetd/
@@ -41,7 +42,6 @@ zaplanowany jako zamiennik dla programu inetd.
 %patch1 -p1
 
 %build
-LDFLAGS="-s"; export LDFLAGS
 %configure \
 	--with-libwrap \
 	--with-libcap \
@@ -50,15 +50,14 @@ LDFLAGS="-s"; export LDFLAGS
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/etc/{rc.d/init.d,sysconfig}
+install -d $RPM_BUILD_ROOT%{_sysconfdir}/{rc.d/init.d,sysconfig}
 
 %{__make} install DESTDIR="$RPM_BUILD_ROOT"
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/sysconfig/rc-inet.script
 
 :> $RPM_BUILD_ROOT%{_sysconfdir}/rlinetd.conf
 
-gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man{1,5,8}/* \
-	{AUTHORS,BUGS,ChangeLog,NEWS,README} \
+gzip -9nf {AUTHORS,BUGS,ChangeLog,NEWS,README} \
 	{README.capabilities,README.inetd,THANKS,THOUGHTS,TODO}
 
 %clean
