@@ -11,7 +11,7 @@ Source1:	%{name}.init
 Patch:		rlinetd-temporary.patch
 URL:		http://www.eris.rcpt.to/rlinetd/
 Provides:	inetd
-BuildPrereq:	libcap-devel
+BuildRequires:	libcap-devel
 Buildroot:      /tmp/%{name}-%{version}-root
 
 %description
