@@ -15,6 +15,7 @@ Source0:	http://www.eris.rcpt.to/rlinetd/download/%{name}-%{version}.tar.gz
 Source1:	%{name}.inet.sh
 Patch0:		%{name}-execve.patch
 Patch1:		%{name}-tcpwrappers.patch
+Patch2:		%{name}-string.h.patch
 URL:		http://www.eris.rcpt.to/rlinetd/
 Requires:	rc-inetd
 Prereq:		rc-scripts
@@ -44,6 +45,7 @@ zaplanowany jako zamiennik dla programu inetd.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %configure \
