@@ -58,8 +58,8 @@ rm -f aux/missing
 libtoolize --copy --force
 autoheader
 aclocal
-autoconf
-automake -a -c -f
+%{__autoconf}
+%{__automake}
 %configure \
 	--with-libwrap \
 	--with-libcap%{?_without_libcap:=no} \
