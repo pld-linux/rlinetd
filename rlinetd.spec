@@ -38,8 +38,6 @@ Obsoletes:	inetd
 Obsoletes:	xinetd
 Obsoletes:	netkit-base
 
-%define         _sysconfdir     /etc
-
 %description
 rlinetd is a connection manager which binds and listens to a number of
 ports, and performs specified actions when a connection is made. It is
@@ -77,7 +75,8 @@ rm -f aux/missing
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/etc/sysconfig
 
-%{__make} install DESTDIR="$RPM_BUILD_ROOT"
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 install -D %{SOURCE1} $RPM_BUILD_ROOT/etc/sysconfig/rc-inet.script
 install -D %{SOURCE2} $RPM_BUILD_ROOT%{_mandir}/pl/man8/rlinetd.8
