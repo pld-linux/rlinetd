@@ -2,13 +2,13 @@ Summary:	better replacement for inetd
 Summary(pl):	lepszy zamiennik dla inetd
 Name:		rlinetd
 Version:	0.5.1
-Release:	1.1
+Release:	1.2
 Group:		Daemons
 Group(pl):	Serwery
 Copyright:	GPL
 Vendor:		Mikolaj J. Habryn <dichro-rlinetd@rcpt.to>
 Source0:	http://www.eris.rcpt.to/rlinetd/download/%{name}-%{version}.tar.gz
-Source1:	rlinetd.init
+#Source1:	rlinetd.init
 Source2:	rlinetd.inet.sh
 URL:		http://www.eris.rcpt.to/rlinetd/
 Requires:	rc-inetd
@@ -47,7 +47,7 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/etc/{rc.d/init.d,sysconfig}
 
 make install DESTDIR="$RPM_BUILD_ROOT"
-install	%{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/%{name}
+#install	%{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/%{name}
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/rc-inet.script
 
 :> $RPM_BUILD_ROOT%{_sysconfdir}/rlinetd.conf
@@ -68,7 +68,7 @@ fi
 
 %preun
 if [ -f /var/lock/subsys/rc-initd ]; then
-	/etc/rc.d/init.d/rlinetd stop
+	/etc/rc.d/init.d/rc-inetd stop
 fi
 
 %files
@@ -78,6 +78,6 @@ fi
 %attr(755,root,root) %{_sbindir}/*
 %attr(755,root,root) %dir %{_libdir}/rlinetd
 %attr(755,root,root) %{_libdir}/rlinetd/*
-%attr(755,root,root) /etc/rc.d/init.d/rlinetd
+#%attr(755,root,root) /etc/rc.d/init.d/rlinetd
 %attr(640,root,root) /etc/sysconfig/rc-inet.script
 %{_mandir}/man[158]/*
