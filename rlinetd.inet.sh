@@ -75,6 +75,10 @@ parse_one_service()
 
 status_rc_inetd()
 {
-	status $INETDEAMON
+	status $INETDAEMON
 }
 
+reload_config()
+{
+	killall -HUP $INETDAEMON
+}
