@@ -40,7 +40,7 @@ make
 %install
 rm -rf $RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT/etc/rc.d/init.d
+install -d $RPM_BUILD_ROOT/etc/{rc.d/init.d,%{name}.d}
 
 touch $RPM_BUILD_ROOT/etc/rlinetd.conf
 make install DESTDIR="$RPM_BUILD_ROOT" mandir="%{_mandir}"
@@ -77,5 +77,6 @@ fi
 %attr(755, root, root) %{_sbindir}/*
 %attr(755, root, root) %dir %{_libdir}/rlinetd
 %attr(755, root, root) %{_libdir}/rlinetd/*
+%attr(755, root, root) %dir /etc/%{name}.d
 %attr(755, root, root) /etc/rc.d/init.d/rlinetd
 %{_mandir}/man*/*
