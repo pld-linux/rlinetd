@@ -16,7 +16,7 @@ Requires:	/etc/rc.d/init.d/rc-inetd
 Provides:	inetdaemon
 BuildRequires:	libcap-devel
 BuildRequires:	libwrap-devel
-Buildroot:	/tmp/%{name}-%{version}-root
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	inetdaemon
 Obsoletes:	inetd
 Obsoletes:	netkit-base
