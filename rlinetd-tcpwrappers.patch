@@ -1,0 +1,47 @@
+diff -urN rlinetd-0.5.1/bytecode.c rlinetd-0.5.1.new/bytecode.c
+--- rlinetd-0.5.1/bytecode.c	Sat Sep 30 23:26:27 2000
++++ rlinetd-0.5.1.new/bytecode.c	Sat Sep 30 23:25:59 2000
+@@ -168,19 +168,23 @@
+ 				str = stringtab_get(*++op);
+ 				k = *++op;
+ #ifdef HAVE_TCP_WRAPPERS
+-				request = (struct request_info *)malloc(sizeof(*request));
+-				request_init(request,
+-										 RQ_FILE, inst->sock,
+-										 RQ_CLIENT_SIN, inst->sin,
+-										 RQ_DAEMON, str,
+-										 0);
+-				fromhost(request);			/* undocumented tcp wrappers magic -
+-																does DNS lookup and possibly other
+-																stuff */
++				request = (struct request_info *)malloc(sizeof(struct request_info));
++				if (request == NULL)
++					rl_fatal(EX_SOFTWARE, "ABORT - Can't allocate memory (OP: %d)", *op);
++
++				request_init(request, RQ_FILE, inst->sock,
++						RQ_CLIENT_SIN, inst->sin,
++						RQ_DAEMON, str,
++						0);
++				/* undocumented tcp wrappers magic -
++				 * does DNS lookup and possibly other stuff */
++				fromhost(request);
++
+ 				if(!hosts_access(request)) {
++					refuse(request);
+ 					run_bytecode(oplisttab_get(k), inst);
+ 				}
+-#endif				
++#endif
+ 				break;
+ 			case OP_SETCAP:
+ #ifdef HAVE_CAPABILITIES
+@@ -210,6 +214,9 @@
+ 				rlstk_push(&inst->stk, 0);
+ 				break;
+ 			case OP_RET:
++				return;
++			case OP_EXIT:
++				abort();
+ 				return;
+ 			case OP_ECHO:
+ 				argv = argvtab_get(*++op);
