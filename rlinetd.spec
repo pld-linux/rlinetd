@@ -17,7 +17,7 @@ Patch0:		%{name}-execve.patch
 Patch1:		%{name}-tcpwrappers.patch
 URL:		http://www.eris.rcpt.to/rlinetd/
 Requires:	rc-inetd
-Requires:	rc-scripts
+Prereq:		rc-scripts
 Requires:	/etc/rc.d/init.d/rc-inetd
 Provides:	inetdaemon
 %{?!no_libcap:BuildRequires: libcap-devel}
