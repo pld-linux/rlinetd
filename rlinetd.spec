@@ -12,6 +12,7 @@ Source1:	rlinetd.init
 Source2:	rlinetd.inet.sh
 URL:		http://www.eris.rcpt.to/rlinetd/
 Requires:	rc-inetd
+Requires:	rc-scripts
 Requires:	/etc/rc.d/init.d/rc-inetd
 Provides:	inetdaemon
 BuildPrereq:	libcap-devel
