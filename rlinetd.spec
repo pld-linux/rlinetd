@@ -2,7 +2,7 @@ Summary:	better replacement for inetd
 Summary(pl):	lepszy zamiennik dla inetd
 Name:		rlinetd
 Version:	0.5.1
-Release:	3
+Release:	4
 Group:		Daemons
 Group(pl):	Serwery
 Copyright:	GPL
