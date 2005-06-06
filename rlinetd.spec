@@ -24,6 +24,7 @@ Patch6:		%{name}-gcc34.patch
 URL:		http://www.eris.rcpt.to/rlinetd/
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	bison
 BuildRequires:	flex
 %{?with_libcap:BuildRequires:	libcap-devel}
 BuildRequires:	libtool
