@@ -1,4 +1,6 @@
 #
+# TODO: rpc support seems to be broken
+#
 # Conditional build:
 %bcond_without	libcap		# build without libcap support
 #
