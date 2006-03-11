@@ -7,24 +7,20 @@
 Summary:	better replacement for inetd
 Summary(pl):	lepszy zamiennik dla inetd
 Name:		rlinetd
-Version:	0.5.1
-Release:	18
+Version:	0.5.20
+Release:	1
 License:	GPL
 Group:		Daemons
-Vendor:		Mikolaj J. Habryn <dichro-rlinetd@rcpt.to>
-Source0:	http://www.eris.rcpt.to/rlinetd/download/%{name}-%{version}.tar.gz
-# Source0-md5:	a36623b7902d2d29260e20b2be077f31
+#Source0:	http://www.rcpt.to/rlinetd/download/%{name}-%{version}.tar.gz
+Source0:	http://ftp.debian.org/debian/pool/main/r/rlinetd/%{name}_%{version}.tar.gz
+# Source0-md5:	fb40a8816426be89f574e38b984b70e7
 Source1:	%{name}.inet.sh
 Source2:	%{name}.8.pl
-Patch0:		%{name}-execve.patch
-Patch1:		%{name}-tcpwrappers.patch
-Patch2:		%{name}-string.h.patch
-Patch3:		%{name}-no_libnsl.patch
-Patch4:		%{name}-ac25x.patch
-Patch5:		%{name}-gcc3.patch
-Patch6:		%{name}-gcc34.patch
-URL:		http://www.eris.rcpt.to/rlinetd/
-BuildRequires:	autoconf
+Patch0:		%{name}-no_libnsl.patch
+Patch1:		%{name}-dblfree.patch
+#URL:		http://www.rcpt.to/rlinetd/
+URL:		http://packages.debian.org/rlinetd
+BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
 BuildRequires:	bison
 BuildRequires:	flex
@@ -56,11 +52,6 @@ zaplanowany jako zamiennik dla programu inetd.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
 
 %build
 %{__libtoolize}
@@ -108,7 +99,7 @@ fi
 %attr(640,root,root) %ghost %{_sysconfdir}/rlinetd.conf
 %attr(755,root,root) %{_sbindir}/rlinetd
 %attr(755,root,root) %dir %{_libdir}/rlinetd
-%attr(755,root,root) %{_libdir}/rlinetd/*.so*
+%attr(755,root,root) %{_libdir}/rlinetd/*.so
 %attr(640,root,root) /etc/sysconfig/rc-inet.script
 %{_mandir}/man[58]/*
 %lang(pl) %{_mandir}/pl/man8/*
