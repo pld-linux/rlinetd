@@ -1,0 +1,21 @@
+rlp_cleanup() already frees passed rl_cleanup list.
+--- rlinetd-0.5.20/grammar.y.orig	2004-08-02 19:11:57.000000000 +0200
++++ rlinetd-0.5.20/grammar.y	2006-03-11 11:18:20.365351750 +0100
+@@ -997,14 +997,10 @@
+ }
+ 
+ void services_free() {
+-	struct rl_cleanup *p;
+-
+-	while(rl_cleanups) {
++	if(rl_cleanups) {
+ 		rlp_cleanup(rl_cleanups);
+-		p = rl_cleanups->next;
+-		free(rl_cleanups);
+-		rl_cleanups = p;
+-	}
++		rl_cleanups = NULL;
++	}
+ }
+ 
+ static void validate_service(struct service *s) {
