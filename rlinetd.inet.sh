@@ -20,7 +20,11 @@ parse_one_service()
 
 	[ ${SERVICE_NAME:-not} = "not" ]	&& ERROR_CODE=11
 	[ ${PROTOCOL:-not} = "not" ]		&& ERROR_CODE=12
-	[ ${PORT:-not} = "not" ]		&& ERROR_CODE=13
+	if [ ${RPCNAME:-not} = "not" ]; then
+		[ ${PORT:-not} = "not" ]	&& ERROR_CODE=13
+	else
+		[ ${PORT:-not} = "not" ]	&& PORT=0
+	fi
 	[ ${USER:-not} = "not" ]		&& ERROR_CODE=14
 	[ ${SERVER:-not} = "not" ]		&& ERROR_CODE=15
 	[ ${FLAGS:-not} = "not" ]		&& ERROR_CODE=16
