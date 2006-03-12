@@ -1,5 +1,8 @@
 #
-# TODO: rpc support seems to be broken
+# NOTE:
+# - rpc support is incomplete (no pmap_unset on shutdown)
+# - "instances 1" is not enough for tcp "wait" emulation
+#   (in such case server accept()s, inetd must not!)
 #
 # Conditional build:
 %bcond_without	libcap		# build without libcap support
@@ -18,6 +21,7 @@ Source1:	%{name}.inet.sh
 Source2:	%{name}.8.pl
 Patch0:		%{name}-no_libnsl.patch
 Patch1:		%{name}-dblfree.patch
+Patch2:		%{name}-rpc.patch
 #URL:		http://www.rcpt.to/rlinetd/
 URL:		http://packages.debian.org/rlinetd
 BuildRequires:	autoconf >= 2.59
@@ -52,6 +56,7 @@ zaplanowany jako zamiennik dla programu inetd.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %{__libtoolize}
