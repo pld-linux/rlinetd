@@ -31,10 +31,10 @@ BuildRequires:	flex
 %{?with_libcap:BuildRequires:	libcap-devel}
 BuildRequires:	libtool
 BuildRequires:	libwrap-devel
-PreReq:		rc-scripts
-PreReq:		psmisc
+Requires(post,preun):	rc-inetd
+Requires:	psmisc
 Requires:	rc-inetd
-Requires:	/etc/rc.d/init.d/rc-inetd
+Requires:	rc-scripts
 Provides:	inetdaemon
 Obsoletes:	inetdaemon
 Obsoletes:	inetd
