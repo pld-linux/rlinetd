@@ -22,8 +22,8 @@ Source2:	%{name}.8.pl
 Patch0:		%{name}-no_libnsl.patch
 Patch1:		%{name}-dblfree.patch
 Patch2:		%{name}-rpc.patch
-#URL:		http://www.rcpt.to/rlinetd/
 URL:		http://packages.debian.org/rlinetd
+#URL:		http://www.rcpt.to/rlinetd/
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
 BuildRequires:	bison
@@ -31,15 +31,16 @@ BuildRequires:	flex
 %{?with_libcap:BuildRequires:	libcap-devel}
 BuildRequires:	libtool
 BuildRequires:	libwrap-devel
+BuildRequires:	rpmbuild(macros) >= 1.268
 Requires(post,preun):	rc-inetd
 Requires:	psmisc
 Requires:	rc-inetd
 Requires:	rc-scripts
 Provides:	inetdaemon
-Obsoletes:	inetdaemon
 Obsoletes:	inetd
-Obsoletes:	xinetd
+Obsoletes:	inetdaemon
 Obsoletes:	netkit-base
+Obsoletes:	xinetd
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -87,15 +88,11 @@ install -D %{SOURCE2} $RPM_BUILD_ROOT%{_mandir}/pl/man8/rlinetd.8
 rm -rf $RPM_BUILD_ROOT
 
 %post
-if [ -f /var/lock/subsys/rc-inetd ]; then
-	/etc/rc.d/init.d/rc-inetd restart 1>&2
-else
-	echo "Type \"/etc/rc.d/init.d/rc-inetd start\" to start rlinetd" 1>&2
-fi
+%service -q rc-inetd restart
 
 %preun
-if [ "$1" = "0" -a -f /var/lock/subsys/rc-inetd ]; then
-	/etc/rc.d/init.d/rc-inetd stop
+if [ "$1" = "0" ]; then
+	%service rc-inetd stop
 fi
 
 %files
