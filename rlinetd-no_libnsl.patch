@@ -1,10 +1,11 @@
---- rlinetd-0.5.20/configure.ac~	Fri Aug 27 03:17:06 1999
-+++ rlinetd-0.5.20/configure.ac	Wed Jul 11 04:11:25 2001
-@@ -16,7 +16,6 @@
- AM_PROG_LIBTOOL
- 
- AC_CHECK_LIB(dl, dlsym, libsrlinetd="${libsrlinetd} -ldl")
--AC_CHECK_LIB(nsl, yp_get_default_domain, libsrlinetd="${libsrlinetd} -lnsl"; LIBS="$LIBS -lnsl")
- 
- AC_ARG_WITH(libwrap,dnl
-   --with-libwrap          perform tcp_wrappers access control checks,
+--- rlinetd-0.6/configure.ac.orig	2006-03-19 16:29:48.000000000 +0100
++++ rlinetd-0.6/configure.ac	2006-03-20 10:12:05.089062000 +0100
+@@ -42,7 +42,7 @@
+ libnsl=yes
+ AC_ARG_WITH(libnsl,dnl
+   --with-libnsl           link with the nsl library,
+-	libwnsl=$withval)
++	libnsl=$withval)
+ if test x"$libnsl" != x"no"; then
+   AC_CHECK_LIB(nsl, yp_get_default_domain, libsrlinetd="${libsrlinetd} -lnsl"; LIBS="$LIBS -lnsl")
+ fi  
