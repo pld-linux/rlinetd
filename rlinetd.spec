@@ -1,28 +1,19 @@
 #
-# NOTE:
-# - rpc support is incomplete (no pmap_unset on shutdown)
-# - "instances 1" is not enough for tcp "wait" emulation
-#   (in such case server accept()s, inetd must not!)
-# [both should be fixed in 0.6]
-#
 # Conditional build:
 %bcond_without	libcap		# build without libcap support
 #
 Summary:	better replacement for inetd
 Summary(pl):	lepszy zamiennik dla inetd
 Name:		rlinetd
-Version:	0.5.20
+Version:	0.6
 Release:	1
 License:	GPL
 Group:		Daemons
-#Source0:	http://rlinetd.alioth.debian.org/%{name}-%{version}.tar.gz
-Source0:	http://ftp.debian.org/debian/pool/main/r/rlinetd/%{name}_%{version}.tar.gz
-# Source0-md5:	fb40a8816426be89f574e38b984b70e7
+Source0:	http://rlinetd.alioth.debian.org/download/%{name}-%{version}.tar.gz
+# Source0-md5:	d0502eb8400bfa9074b8b80625bb52f1
 Source1:	%{name}.inet.sh
 Source2:	%{name}.8.pl
 Patch0:		%{name}-no_libnsl.patch
-Patch1:		%{name}-dblfree.patch
-Patch2:		%{name}-rpc.patch
 URL:		http://rlinetd.alioth.debian.org/
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
@@ -56,8 +47,6 @@ zaplanowany jako zamiennik dla programu inetd.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
 
 %build
 %{__libtoolize}
@@ -69,7 +58,7 @@ zaplanowany jako zamiennik dla programu inetd.
 	--with-libwrap \
 	--with-libcap%{!?with_libcap:=no} \
 	--with-lsf \
-	--disable-static
+	--without-libnsl
 %{__make}
 
 %install
