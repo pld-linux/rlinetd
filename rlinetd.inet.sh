@@ -22,8 +22,6 @@ parse_one_service()
 	[ ${PROTOCOL:-not} = "not" ]		&& ERROR_CODE=12
 	if [ ${RPCNAME:-not} = "not" ]; then
 		[ ${PORT:-not} = "not" ]	&& ERROR_CODE=13
-	else
-		[ ${PORT:-not} = "not" ]	&& PORT=0
 	fi
 	[ ${USER:-not} = "not" ]		&& ERROR_CODE=14
 	[ ${SERVER:-not} = "not" ]		&& ERROR_CODE=15
@@ -61,7 +59,7 @@ parse_one_service()
 	echo "service \"$SERVICE_NAME\" {"
 	echo "	protocol	$PROTOCOL;"
 	[ "${FAMILY:-none}" = "none" ] || echo "	family		$FAMILY;"
-	echo "	port		\"$PORT\";"
+	[ "${PORT:-none}" = "none" ] || echo "	port		\"$PORT\";"
 	echo "	user		\"$USER\";"
 	[ "${GROUP:-none}" = "none" ] || echo "	group		\"$GROUP\";"
 	if [ "$SERVER" = "tcpd" ] ; then
@@ -76,7 +74,7 @@ parse_one_service()
 		echo " $DAEMONARGS\";"
 	fi
 	if [ "$FLAGS" = "wait" ] ; then
-	echo "	instances	1;"
+	echo "	wait		yes;"
 	else
 		[ "${MAX_CONNECTIONS:-n}" = "n" ] || echo "	instances	$MAX_CONNECTIONS;"
 	fi
