@@ -3,7 +3,7 @@
 %bcond_without	libcap		# build without libcap support
 #
 Summary:	better replacement for inetd
-Summary(pl):	lepszy zamiennik dla inetd
+Summary(pl.UTF-8):   lepszy zamiennik dla inetd
 Name:		rlinetd
 Version:	0.6
 Release:	1
@@ -39,9 +39,9 @@ rlinetd is a connection manager which binds and listens to a number of
 ports, and performs specified actions when a connection is made. It is
 intended as a replacement for the BSD inetd program.
 
-%description -l pl
-rlinetd jest zarz±dc± po³±czeñ, który podczepia siê i s³ucha na wielu
-portach, wykonuj±c zadane czynno¶ci, kiedy nast±pi po³±czenie. Jest
+%description -l pl.UTF-8
+rlinetd jest zarzÄ…dcÄ… poÅ‚Ä…czeÅ„, ktÃ³ry podczepia siÄ™ i sÅ‚ucha na wielu
+portach, wykonujÄ…c zadane czynnoÅ›ci, kiedy nastÄ…pi poÅ‚Ä…czenie. Jest
 zaplanowany jako zamiennik dla programu inetd.
 
 %prep
