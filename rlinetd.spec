@@ -3,7 +3,7 @@
 %bcond_without	libcap		# build without libcap support
 #
 Summary:	better replacement for inetd
-Summary(pl.UTF-8):   lepszy zamiennik dla inetd
+Summary(pl.UTF-8):	lepszy zamiennik dla inetd
 Name:		rlinetd
 Version:	0.6
 Release:	1
