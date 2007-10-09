@@ -1,0 +1,4 @@
+- release 1.1,
+- addec passing LDFLAGS="-s" to ./configure environment instead stripping
+  binaries in %install,
+- starting prepare for rc-inetd.
