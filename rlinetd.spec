@@ -71,6 +71,9 @@ install -D %{SOURCE2} $RPM_BUILD_ROOT%{_mandir}/pl/man8/rlinetd.8
 
 :> $RPM_BUILD_ROOT%{_sysconfdir}/rlinetd.conf
 
+rm -f $RPM_BUILD_ROOT%{_libdir}/rlinetd/*.la
+rm -f $RPM_BUILD_ROOT{%{_sbindir}/inetd2rlinetd,%{_mandir}/man8/inetd2rlinetd.8}
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -88,7 +91,8 @@ fi
 %attr(640,root,root) %ghost %{_sysconfdir}/rlinetd.conf
 %attr(755,root,root) %{_sbindir}/rlinetd
 %attr(755,root,root) %dir %{_libdir}/rlinetd
-%attr(755,root,root) %{_libdir}/rlinetd/*.so
+%attr(755,root,root) %{_libdir}/rlinetd/libparse.so
 %attr(640,root,root) /etc/sysconfig/rc-inet.script
-%{_mandir}/man[58]/*
-%lang(pl) %{_mandir}/pl/man8/*
+%{_mandir}/man5/rlinetd.conf.5*
+%{_mandir}/man8/rlinetd.8*
+%lang(pl) %{_mandir}/pl/man8/rlinetd.8*
