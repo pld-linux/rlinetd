@@ -9,7 +9,7 @@ Version:	0.6.1
 Release:	1
 License:	GPL
 Group:		Daemons
-Source0:	http://alioth.debian.org/frs/download.php/1871/%{name}-%{version}.tar.gz
+Source0:	http://rlinetd.alioth.debian.org/download/rlinetd/%{name}-%{version}/%{name}-%{version}.tar.gz
 # Source0-md5:	b98071515f37964ac517d5011a1834c8
 Source1:	%{name}.inet.sh
 Source2:	%{name}.8.pl
