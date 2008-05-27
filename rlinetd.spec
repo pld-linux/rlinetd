@@ -5,12 +5,12 @@
 Summary:	better replacement for inetd
 Summary(pl.UTF-8):	lepszy zamiennik dla inetd
 Name:		rlinetd
-Version:	0.6.1
-Release:	2
+Version:	0.6.2
+Release:	1
 License:	GPL
 Group:		Daemons
 Source0:	http://rlinetd.alioth.debian.org/download/rlinetd/%{name}-%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	b98071515f37964ac517d5011a1834c8
+# Source0-md5:	b0ad5112a43a68e6c1a3f3a654abab45
 Source1:	%{name}.inet.sh
 Source2:	%{name}.8.pl
 URL:		http://rlinetd.alioth.debian.org/
