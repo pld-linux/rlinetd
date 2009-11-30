@@ -22,6 +22,7 @@ BuildRequires:	flex
 BuildRequires:	libtool
 BuildRequires:	libwrap-devel
 BuildRequires:	rpmbuild(macros) >= 1.268
+BuildRequires:	sed >= 4.0
 Requires(post,preun):	rc-inetd
 Requires:	psmisc
 Requires:	rc-inetd
@@ -45,6 +46,8 @@ zaplanowany jako zamiennik dla programu inetd.
 
 %prep
 %setup -q
+
+sed '/AC_PROG_CXX/d' -i configure.ac
 
 %build
 %{__libtoolize}
