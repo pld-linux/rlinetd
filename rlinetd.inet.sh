@@ -78,11 +78,18 @@ parse_one_service()
 	else
 		echo " $DAEMONARGS\";"
 	fi
-	if [ "$FLAGS" = "wait" ] ; then
-	echo "	wait		yes;"
-	else
-		[ "${MAX_CONNECTIONS:-n}" = "n" ] || echo "	instances	$MAX_CONNECTIONS;"
-	fi
+	for i in $FLAGS; do
+		case "$i" in
+		wait)
+			echo "	wait		yes;"
+			;;
+		nowait)
+			[ "${MAX_CONNECTIONS:-n}" = "n" ] || echo "	instances	$MAX_CONNECTIONS;"
+			;;
+		*)
+			;;
+		esac
+	done
 
 	[ "${INTERFACE:-n}" = "n" ]	|| echo "	interface	$INTERFACE;"
 	[ "${NICE:-n}" = "n" ]		|| echo "	nice		$NICE;"
