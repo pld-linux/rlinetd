@@ -5,14 +5,13 @@
 Summary:	better replacement for inetd
 Summary(pl.UTF-8):	lepszy zamiennik dla inetd
 Name:		rlinetd
-Version:	0.6.2
-Release:	3
+Version:	0.7
+Release:	1
 License:	GPL
 Group:		Daemons
 Source0:	http://rlinetd.alioth.debian.org/download/rlinetd/%{name}-%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	b0ad5112a43a68e6c1a3f3a654abab45
+# Source0-md5:	a60b4242b5872e9afcf027bb0f5c86ba
 Source1:	%{name}.inet.sh
-Source2:	%{name}.8.pl
 URL:		http://rlinetd.alioth.debian.org/
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
@@ -47,19 +46,13 @@ zaplanowany jako zamiennik dla programu inetd.
 %prep
 %setup -q
 
-sed '/AC_PROG_CXX/d' -i configure.ac
-
 %build
-%{__libtoolize}
-%{__autoheader}
-%{__aclocal}
-%{__autoconf}
-%{__automake}
 %configure \
 	--with-libwrap \
 	--with-libcap%{!?with_libcap:=no} \
 	--with-lsf \
 	--without-libnsl
+
 %{__make}
 
 %install
@@ -70,12 +63,13 @@ install -d $RPM_BUILD_ROOT/etc/sysconfig
 	DESTDIR=$RPM_BUILD_ROOT
 
 install -D %{SOURCE1} $RPM_BUILD_ROOT/etc/sysconfig/rc-inet.script
-install -D %{SOURCE2} $RPM_BUILD_ROOT%{_mandir}/pl/man8/rlinetd.8
 
 :> $RPM_BUILD_ROOT%{_sysconfdir}/rlinetd.conf
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/rlinetd/*.la
 rm -f $RPM_BUILD_ROOT{%{_sbindir}/inetd2rlinetd,%{_mandir}/man8/inetd2rlinetd.8}
+
+%find_lang %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -88,7 +82,7 @@ if [ "$1" = "0" ]; then
 	%service rc-inetd stop
 fi
 
-%files
+%files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS BUGS ChangeLog NEWS README{,.capabilities,.inetd} THANKS THOUGHTS TODO
 %attr(640,root,root) %ghost %{_sysconfdir}/rlinetd.conf
@@ -98,4 +92,4 @@ fi
 %attr(640,root,root) /etc/sysconfig/rc-inet.script
 %{_mandir}/man5/rlinetd.conf.5*
 %{_mandir}/man8/rlinetd.8*
-%lang(pl) %{_mandir}/pl/man8/rlinetd.8*
+%lang(pl) %{_mandir}/pl/man[58]/*
